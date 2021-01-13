@@ -7,7 +7,8 @@ import androidx.room.RoomDatabase
 import truebeans.fyruz.meteofy.DataAccessObject.WeatherPlaceDAO
 import truebeans.fyruz.meteofy.Models.WeatherPlace
 
-@Database(entities = arrayOf(WeatherPlace::class), version = 1, exportSchema = false)
+
+@Database(entities = arrayOf(WeatherPlace::class), version = 2, exportSchema = false)
 abstract class MeteofyDatabase : RoomDatabase() { // : is the extend
 
     abstract fun weatherPlaceDAO(): WeatherPlaceDAO
@@ -23,11 +24,22 @@ abstract class MeteofyDatabase : RoomDatabase() { // : is the extend
                         context.applicationContext,
                         MeteofyDatabase::class.java,
                         "meteofy_database"
-                ).build()
+                )
+                        /*.addMigrations(object : Migration(1, 2) {
+                            override fun migrate(database: SupportSQLiteDatabase) {
+                                database.execSQL("ALTER TABLE WeatherPlaces " +
+                                        "DROP placeId")
+                                database.execSQL("ALTER TABLE WeatherPlaces" +
+                                        "ADD PRIMARY KEY(placeName)"
+                                )
+                            }
+                        })*/
+                        .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
         }
     }
+
 }

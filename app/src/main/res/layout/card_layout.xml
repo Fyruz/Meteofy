@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/cardView"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,10 +37,13 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/weather"
+            android:layout_margin="8dp"
+            android:id="@+id/weather_type"
             android:layout_marginLeft="16dp"
             android:src="@drawable/decision2_sprite"
             />
+
+            <!-- Add custom background, to change its color -->
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

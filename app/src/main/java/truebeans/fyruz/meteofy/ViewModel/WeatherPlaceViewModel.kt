@@ -1,24 +1,18 @@
 package truebeans.fyruz.meteofy.ViewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import truebeans.fyruz.meteofy.Models.WeatherPlace
+import truebeans.fyruz.meteofy.Repository.WeatherPlaceRepository
 
-class WeatherPlaceViewModel {
-    private val placeMutableList = mutableListOf<WeatherPlace>()
-    private val places = MutableLiveData<List<WeatherPlace>>()
+class WeatherPlaceViewModel(private val repo: WeatherPlaceRepository) : ViewModel() {
 
-    init{
-        places.value = placeMutableList
+    val places: LiveData<List<WeatherPlace>> = repo.allPlaces.asLiveData()
+
+    /**
+     * Launching a new coroutine to insert the data in a non-blocking way
+     */
+    fun insert(word: WeatherPlace) = viewModelScope.launch {
+        repo.insert(word)
     }
-
-    fun addWeatherPlace(weatherPlace: WeatherPlace){
-
-        placeMutableList.add(weatherPlace)
-        places.value = placeMutableList
-
-    }
-
-    fun getWeatherPlaces() = places as LiveData<List<WeatherPlace>>  //remove the mutable attribute
-
 }

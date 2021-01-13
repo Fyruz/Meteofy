@@ -1,6 +1,5 @@
 package truebeans.fyruz.meteofy.DataAccessObject
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +10,7 @@ import truebeans.fyruz.meteofy.Models.WeatherPlace
 @Dao
 interface WeatherPlaceDAO {
 
-    @Query("SELECT * FROM WeatherPlaces ORDER BY placeId" )
+    @Query("SELECT * FROM WeatherPlaces" )
     fun getWeatherPlaces(): Flow<List<WeatherPlace>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
