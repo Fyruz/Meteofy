@@ -12,7 +12,7 @@ class WeatherPlaceViewModel(private val repo: WeatherPlaceRepository) : ViewMode
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(word: WeatherPlace) = viewModelScope.launch {
-        repo.insert(word)
+    fun insert(place: WeatherPlace) = viewModelScope.launch {
+        repo.insert(place)
     }
 }
