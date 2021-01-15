@@ -1,10 +1,16 @@
 package truebeans.fyruz.meteofy.Utils
 
+import OpenWeatherMapJsonResponse
+import com.google.gson.Gson
 import truebeans.fyruz.meteofy.ViewModel.WeatherPlaceViewModel
 
 class OpenWeatherMapCaller(val placeName: String, val weatherPlaceViewModel: WeatherPlaceViewModel) : InternetCaller() {
 
-    val apiKey = "70c4605ff86d3fba67646a0c752a7d85"
+    private val apiKey : String = "70c4605ff86d3fba67646a0c752a7d85"
+
+    init {
+        internetCall()
+    }
 
     override fun getPageUrl(): String {
         return "/data/2.5/"
@@ -15,7 +21,9 @@ class OpenWeatherMapCaller(val placeName: String, val weatherPlaceViewModel: Wea
     }
 
     override fun responseReceived(response: String) {
-        //TODO parse JSON to class(?) and insert response in wpViewModel
+        val x  = Gson().fromJson(response, OpenWeatherMapJsonResponse::class.java)
+
+        //TODO create a WP and pass to wpviewmodel
     }
 
     override fun getParameters(): String {
