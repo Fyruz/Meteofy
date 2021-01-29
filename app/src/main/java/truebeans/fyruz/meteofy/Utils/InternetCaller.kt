@@ -1,29 +1,27 @@
 package truebeans.fyruz.meteofy.Utils
 
-import android.util.Log
 import okhttp3.*
 import java.io.IOException
 
-abstract class InternetCaller : InternetCall{
+abstract class InternetCaller : InternetConnection{
 
-    override fun internetCall() {
-        val client = OkHttpClient()
-        val request = createRequest()
+    override fun startConnection() {
+        OkHttpClient()
+                .newCall(createRequest())
+                .enqueue(object : Callback{
+                    override fun onFailure(call: Call, e: IOException) {
+                            onErrorReceived("Errore nel collegamento al DB")
+                    }
 
-        client.newCall(request).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                TODO()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-
-                responseReceived(response.body()?.string().toString())
+                    override fun onResponse(call: Call, response: Response) {
+                response.body()?.string()?.let {
+                    onResponseReceived(it)
+                }
             }
         })
     }
 
     private fun createRequest() : Request{
-        val url = getHostingUrl() + getPageUrl() + getParameters()
         return Request.Builder()
             .url(getHostingUrl() + getPageUrl() + getParameters())
             .build()
@@ -34,6 +32,6 @@ abstract class InternetCaller : InternetCall{
     abstract fun getPageUrl() : String
 
     abstract fun getHostingUrl() : String
-
-    abstract override fun responseReceived(response: String)
 }
+
+

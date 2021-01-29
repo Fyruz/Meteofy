@@ -10,9 +10,12 @@ import truebeans.fyruz.meteofy.Models.WeatherPlace
 @Dao
 interface WeatherPlaceDAO {
 
-    @Query("SELECT * FROM WeatherPlaces" )
+    @Query("SELECT * FROM WeatherPlaces")
     fun getWeatherPlaces(): Flow<List<WeatherPlace>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewPlace(newPlace: WeatherPlace)
+
+    @Query("DELETE FROM WeatherPlaces WHERE placeName = :currentPlaceName")
+    suspend fun deleteByPlaceId(currentPlaceName: String)
 }

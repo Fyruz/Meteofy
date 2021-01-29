@@ -8,8 +8,8 @@ import truebeans.fyruz.meteofy.DataAccessObject.WeatherPlaceDAO
 import truebeans.fyruz.meteofy.Models.WeatherPlace
 
 
-@Database(entities = arrayOf(WeatherPlace::class), version = 2, exportSchema = false)
-abstract class MeteofyDatabase : RoomDatabase() { // : is the extend
+@Database(entities = [WeatherPlace::class], version = 2, exportSchema = false)
+abstract class MeteofyDatabase : RoomDatabase() {
 
     abstract fun weatherPlaceDAO(): WeatherPlaceDAO
 
@@ -25,18 +25,8 @@ abstract class MeteofyDatabase : RoomDatabase() { // : is the extend
                         MeteofyDatabase::class.java,
                         "meteofy_database"
                 )
-                        /*.addMigrations(object : Migration(1, 2) {
-                            override fun migrate(database: SupportSQLiteDatabase) {
-                                database.execSQL("ALTER TABLE WeatherPlaces " +
-                                        "DROP placeId")
-                                database.execSQL("ALTER TABLE WeatherPlaces" +
-                                        "ADD PRIMARY KEY(placeName)"
-                                )
-                            }
-                        })*/
                         .build()
                 INSTANCE = instance
-                // return instance
                 instance
             }
         }
