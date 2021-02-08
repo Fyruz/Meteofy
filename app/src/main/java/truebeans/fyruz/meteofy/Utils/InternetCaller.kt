@@ -10,7 +10,7 @@ abstract class InternetCaller : InternetConnection{
                 .newCall(createRequest())
                 .enqueue(object : Callback{
                     override fun onFailure(call: Call, e: IOException) {
-                            onErrorReceived("Errore nel collegamento al DB")
+                            onErrorReceived("Errore nel collegamento al servizio internet")
                     }
 
                     override fun onResponse(call: Call, response: Response) {

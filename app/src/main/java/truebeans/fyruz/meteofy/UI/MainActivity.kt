@@ -1,5 +1,6 @@
 package truebeans.fyruz.meteofy.UI
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,10 +55,9 @@ class MainActivity : AppCompatActivity() , CardClickListener{
     //Initialize the ViewModel
     private fun initViewModel(){
         weatherPlaceViewModel = WeatherPlaceViewModel(WeatherPlaceRepository
-                .getInstance(MeteofyDatabase
-                        .getDatabase(this)
+                .getRepositoryInstance(MeteofyDatabase
+                        .getDatabaseInstance(this)
                         .weatherPlaceDAO()))
-
         weatherPlaceViewModel
                 .places
                 .observe(this, { places -> adapter.itemsHasChanged(places) })

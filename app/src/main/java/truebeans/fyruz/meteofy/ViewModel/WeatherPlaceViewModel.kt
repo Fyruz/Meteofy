@@ -7,7 +7,7 @@ import truebeans.fyruz.meteofy.Repository.WeatherPlaceRepository
 
 class WeatherPlaceViewModel(private val repo: WeatherPlaceRepository) : ViewModel() {
 
-    val places: LiveData<List<WeatherPlace>> = repo.places.asLiveData()
+    val places: LiveData<List<WeatherPlace>> = repo.places
 
     //Insert new element inside the DB
     fun insert(place: WeatherPlace) = viewModelScope.launch {
@@ -18,4 +18,5 @@ class WeatherPlaceViewModel(private val repo: WeatherPlaceRepository) : ViewMode
     fun delete(placeId: String) = viewModelScope.launch {
         repo.delete(placeId)
     }
+
 }

@@ -52,6 +52,6 @@ class OpenWeatherMapCaller(private val placeName: String,
         val weatherType = rawPlace.weather[0].main
         weatherPlaceViewModel.insert(
                 WeatherPlace(placeName, "$placeTemp°", weatherType)
-        )
+            )
     }
 }

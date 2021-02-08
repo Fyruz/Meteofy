@@ -19,16 +19,12 @@ class RecyclerAdapter(private val context: Context,
                       private val cellClickListener: CardClickListener) : RecyclerView.Adapter<RecyclerAdapter.WeatherPlaceHolder>() {
 
 
-    override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-    ): WeatherPlaceHolder{
-        val view : View = LayoutInflater.from(context).inflate(R.layout.card_layout, parent, false)
-        return WeatherPlaceHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherPlaceHolder{
+        return WeatherPlaceHolder(
+                LayoutInflater.from(context).inflate(R.layout.card_layout, parent, false))
     }
 
-    override fun onBindViewHolder(holder: WeatherPlaceHolder,
-                                  position: Int) {
+    override fun onBindViewHolder(holder: WeatherPlaceHolder, position: Int) {
         val currentPlace = weatherPlaceList[position]
 
         populateViewHolder(holder, currentPlace)
@@ -50,34 +46,33 @@ class RecyclerAdapter(private val context: Context,
         holder.cardView.setCardBackgroundColor(getCardBackground(place.placeWeather))
     }
 
+    private fun getCardBackground(weatherType: String): Int{
+        return when(weatherType) {
+            "Rain" -> Color.parseColor("#ff5722")
+            "Clear" -> Color.parseColor("#0288d1")
+            "Snow" -> Color.parseColor("#ff5722")
+            "Clouds" -> Color.parseColor("#fbc02d")
+            "Fog" -> Color.parseColor("#fbc02d")
+            else -> Color.parseColor("#8bc34a")
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun getWeatherImage(weatherType: String): Drawable?{
+        return when(weatherType){
+            "Rain" -> context.getDrawable(R.drawable.icon_rain)
+            "Clear" -> context.getDrawable(R.drawable.icon_sun)
+            "Snow" -> context.getDrawable(R.drawable.icon_snow)
+            "Clouds" -> context.getDrawable(R.drawable.icon_cloud)
+            "Fog" -> context.getDrawable(R.drawable.icon_cloud)
+            else -> context.getDrawable(R.drawable.icon_default)
+        }
+    }
+
     fun itemsHasChanged(newPlaces: List<WeatherPlace>){
         weatherPlaceList.clear()
         weatherPlaceList.addAll(newPlaces)
         notifyDataSetChanged()
-    }
-
-
-    private fun getCardBackground(weatherType: String) : Int{
-        if(weatherType == "Clear")
-            return Color.parseColor("#0288d1")
-        if(weatherType == "Rain" || weatherType == "Snow")
-            return Color.parseColor("#ff5722")
-        if(weatherType == "Clouds" || weatherType == "Fog")
-            return Color.parseColor("#fbc02d")
-        return Color.parseColor("#8bc34a")
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun getWeatherImage(weatherType: String) : Drawable? {
-        if(weatherType == "Clear")
-            return context.getDrawable(R.drawable.icon_sun)
-        if(weatherType == "Rain")
-            return context.getDrawable(R.drawable.icon_rain)
-        if(weatherType == "Snow")
-            return context.getDrawable(R.drawable.icon_snow)
-        if(weatherType == "Clouds" || weatherType == "Fog")
-            return context.getDrawable(R.drawable.icon_cloud)
-        return context.getDrawable(R.drawable.icon_default)
     }
 
     override fun getItemCount(): Int {

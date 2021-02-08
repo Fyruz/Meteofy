@@ -1,25 +1,25 @@
 package truebeans.fyruz.meteofy.Repository
 
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
 import truebeans.fyruz.meteofy.DataAccessObject.WeatherPlaceDAO
 import truebeans.fyruz.meteofy.Models.WeatherPlace
 
 class WeatherPlaceRepository(private val weatherPlaceDAO: WeatherPlaceDAO) {
 
-    val places: Flow<List<WeatherPlace>> = weatherPlaceDAO.getWeatherPlaces()
+    val places: LiveData<List<WeatherPlace>> = weatherPlaceDAO.getWeatherPlacesAsLiveData()
 
-    suspend fun insert(weatherPlace: WeatherPlace) {
+    fun insert(weatherPlace: WeatherPlace) {
         weatherPlaceDAO.insertNewPlace(weatherPlace)
     }
 
-    suspend fun delete(placeId: String){
+    fun delete(placeId: String){
         weatherPlaceDAO.deleteByPlaceId(placeId)
     }
 
     companion object{
         @Volatile private var instance: WeatherPlaceRepository? = null
 
-        fun getInstance(wPlaceDAO: WeatherPlaceDAO) =
+        fun getRepositoryInstance(wPlaceDAO: WeatherPlaceDAO) =
                 instance ?: synchronized(this){
                     instance ?: WeatherPlaceRepository(wPlaceDAO).also { instance = it }
                 }

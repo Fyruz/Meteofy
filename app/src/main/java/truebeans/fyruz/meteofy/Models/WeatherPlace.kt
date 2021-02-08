@@ -2,8 +2,9 @@ package truebeans.fyruz.meteofy.Models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import truebeans.fyruz.meteofy.MeteofyDatabase
 
-@Entity(tableName = "WeatherPlaces")
-data class WeatherPlace (@PrimaryKey val placeName: String,
+@Entity(tableName = MeteofyDatabase.TABLE_NAME)
+data class WeatherPlace (@PrimaryKey var placeName: String,
                          val placeTemp: String,
                          val placeWeather: String)

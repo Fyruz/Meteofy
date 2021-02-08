@@ -15,20 +15,28 @@ abstract class MeteofyDatabase : RoomDatabase() {
 
     companion object {
 
-        @Volatile
-        private var INSTANCE: MeteofyDatabase? = null
+        private const val DATABASE_NAME: String = "meteofy_database"
+        const val TABLE_NAME = "WeatherPlaces"
+        var TEST_MODE = false
 
-        fun getDatabase(context: Context): MeteofyDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        MeteofyDatabase::class.java,
-                        "meteofy_database"
-                )
-                        .build()
-                INSTANCE = instance
-                instance
+        private var INSTANCE: MeteofyDatabase? = null
+        private var DAOINSTANCE: WeatherPlaceDAO? = null
+
+        fun getDatabaseInstance(context: Context) : MeteofyDatabase {
+            if(INSTANCE == null) {
+                if (TEST_MODE) {
+                    INSTANCE = Room.inMemoryDatabaseBuilder(context, MeteofyDatabase::class.java)
+                            .allowMainThreadQueries()
+                            .build()
+                    DAOINSTANCE = INSTANCE?.weatherPlaceDAO()
+                } else {
+                    INSTANCE = Room.databaseBuilder(context, MeteofyDatabase::class.java, DATABASE_NAME)
+                            .allowMainThreadQueries()
+                            .build()
+                    DAOINSTANCE = INSTANCE?.weatherPlaceDAO()
+                }
             }
+            return INSTANCE!!
         }
     }
 
