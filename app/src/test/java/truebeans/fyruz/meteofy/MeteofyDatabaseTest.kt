@@ -3,6 +3,7 @@ package truebeans.fyruz.meteofy
 import android.content.Context
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.jraska.livedata.test
 import org.junit.*
@@ -28,7 +29,9 @@ class MeteofyDatabaseTest {
     fun setup() {
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
         MeteofyDatabase.TEST_MODE = true
-        db = MeteofyDatabase.getDatabaseInstance(appContext)
+        db = Room.inMemoryDatabaseBuilder(appContext, MeteofyDatabase::class.java)
+                .allowMainThreadQueries()
+                .build()
         dao = db.weatherPlaceDAO()
     }
 
@@ -39,14 +42,6 @@ class MeteofyDatabaseTest {
     }
 
     @Test
-    fun insertAndRetrieveData() {
-        val weatherPlace = WeatherPlace("test_place", "10", "Clouds")
-        val testObserver = dao.getWeatherPlacesAsLiveData().test()
-        dao.insertNewPlace(weatherPlace)
-        Assert.assertTrue(testObserver.value()[0].placeName == weatherPlace.placeName)
-    }
-
-    @Test
     fun insertAndDeleteData(){
         val weatherPlace = WeatherPlace("test_place", "10", "Clouds")
         val testObserver = dao.getWeatherPlacesAsLiveData().test()
@@ -54,4 +49,16 @@ class MeteofyDatabaseTest {
         dao.deleteByPlaceId(weatherPlace.placeName)
         Assert.assertTrue(testObserver.value().isEmpty())
     }
+
+    @Test
+    fun insertAndRetrieveData() {
+        val weatherPlace = WeatherPlace("test_place", "10", "Clouds")
+        val testObserver = dao.getWeatherPlacesAsLiveData().test()
+        dao.insertNewPlace(weatherPlace)
+        Assert.assertTrue(testObserver.value()[0].placeName == weatherPlace.placeName)
+        dao.deleteByPlaceId("test_place")
+        Assert.assertTrue(testObserver.value().isEmpty())
+    }
+
+
 }
