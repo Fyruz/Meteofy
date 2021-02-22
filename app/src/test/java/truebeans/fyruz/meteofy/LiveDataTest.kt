@@ -15,7 +15,7 @@ import org.robolectric.annotation.Config
 class LiveDataTest {
 
     @Test
-    fun liveDataWithObserver() {
+    fun testLiveDataObserver() {
         val mutableLiveData = MutableLiveData<Int>()
         val testObserver = mutableLiveData.test()
 
