@@ -7,3 +7,7 @@ Building this project i have used:
 - OkHttp3 for internet call
 - Sheets by maxkeppeler for creating simple input method (https://github.com/maxkeppeler/sheets)
 - Gson for Json parsing
+
+In-app image:
+
+![App image](https://imgur.com/9Z54XWa.png)
