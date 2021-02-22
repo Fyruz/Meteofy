@@ -1,6 +1,5 @@
 package truebeans.fyruz.meteofy.UI
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,7 @@ import truebeans.fyruz.meteofy.ViewModel.WeatherPlaceViewModel
 
 class MainActivity : AppCompatActivity() , CardClickListener{
 
-    private lateinit var adapter : RecyclerAdapter
+    private lateinit var mainAdapter: RecyclerAdapter
     private lateinit var weatherPlaceViewModel : WeatherPlaceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,9 @@ class MainActivity : AppCompatActivity() , CardClickListener{
     //Initialize recycler view and its component
     private fun initRecyclerView() {
         val mRecycler: RecyclerView = findViewById(R.id.main_recycler)
-        adapter = RecyclerAdapter(this, ArrayList(), this)
+        mainAdapter = RecyclerAdapter(this, ArrayList(), this)
         mRecycler.layoutManager = LinearLayoutManager(this)
-        mRecycler.adapter = adapter
+        mRecycler.adapter = mainAdapter
     }
 
     //Initialize the floating action button
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() , CardClickListener{
                         .weatherPlaceDAO()))
         weatherPlaceViewModel
                 .places
-                .observe(this, { places -> adapter.itemsHasChanged(places) })
+                .observe(this, { places -> mainAdapter.itemsHasChanged(places) })
     }
 
     //Manage the input method for places
