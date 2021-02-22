@@ -1,13 +1,10 @@
 package truebeans.fyruz.meteofy
 
 import OpenWeatherMapJsonResponse
-import android.content.Context
 import android.os.Build
-import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.Gson
 import okhttp3.*
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -20,21 +17,19 @@ import java.io.IOException
 @Config(maxSdk = Build.VERSION_CODES.P, minSdk = Build.VERSION_CODES.P)
 class OpenWeatherMapCallerTest : InternetCaller(){
 
-    lateinit var appContext: Context
-    private val placeName: String = "Firenze"
-    private val placeNameWithError: String = "RandomPlaceThatNotExist"
+    private val testPlaceName: String = "Firenze"
+    private val testPlaceNameWithError: String = "RandomPlaceThatNotExist"
     private val apiKey: String = "70c4605ff86d3fba67646a0c752a7d85"
-    private val urlTest: String = "http://api.openweathermap.org/data/2.5/weather?q=$placeName&appid=$apiKey&units=metric"
-
-    @Before
-    fun setUp() {
-        appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    }
+    private val urlTest: String = "http://api.openweathermap.org/data/2.5/weather?q=$testPlaceName&appid=$apiKey&units=metric"
 
     @Test //Testing a normal request to OWM
     override fun startConnection() {
-        val call = OkHttpClient().newCall(createRequest())
+        val testRequest = createRequest()
+        Assert.assertEquals(testRequest.url().toString(), urlTest)
+
+        val call = OkHttpClient().newCall(testRequest)
         Assert.assertNotNull(call)
+
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 onErrorReceived("Errore nel collegamento al DB")
@@ -73,19 +68,17 @@ class OpenWeatherMapCallerTest : InternetCaller(){
     }
 
     private fun getParametersWithError(): String {
-        return "weather?q=$placeNameWithError&appid=$apiKey&units=metric"
+        return "weather?q=$testPlaceNameWithError&appid=$apiKey&units=metric"
     }
 
     private fun createRequest(): Request {
-        val request =  Request.Builder()
+        return Request.Builder()
             .url(getHostingUrl() + getPageUrl() + getParameters())
             .build()
-        Assert.assertEquals(request.url().toString(), urlTest)
-        return request
     }
 
     override fun getParameters(): String {
-        return "weather?q=$placeName&appid=$apiKey&units=metric"
+        return "weather?q=$testPlaceName&appid=$apiKey&units=metric"
     }
 
     override fun getPageUrl(): String {
