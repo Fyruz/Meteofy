@@ -11,3 +11,5 @@ Building this project i have used:
 In-app image:
 
 ![App image](https://imgur.com/9Z54XWa.png)
+
+Note: the API key present in this project is no longer active.
