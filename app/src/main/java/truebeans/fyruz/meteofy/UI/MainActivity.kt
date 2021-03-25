@@ -10,9 +10,9 @@ import com.maxkeppeler.sheets.input.type.InputEditText
 import truebeans.fyruz.meteofy.UI.Adapters.CardClickListener
 import truebeans.fyruz.meteofy.UI.Adapters.RecyclerAdapter
 import truebeans.fyruz.meteofy.MeteofyDatabase
-import truebeans.fyruz.meteofy.Models.WeatherPlace
+import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 import truebeans.fyruz.meteofy.R
-import truebeans.fyruz.meteofy.Repository.WeatherPlaceRepository
+import truebeans.fyruz.meteofy.Models.Repository.WeatherPlaceRepository
 import truebeans.fyruz.meteofy.Utils.OpenWeatherMapCaller
 import truebeans.fyruz.meteofy.ViewModel.WeatherPlaceViewModel
 

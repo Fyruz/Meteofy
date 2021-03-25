@@ -1,4 +1,4 @@
-package truebeans.fyruz.meteofy.Models
+package truebeans.fyruz.meteofy.Models.Data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

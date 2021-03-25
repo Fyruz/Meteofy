@@ -1,8 +1,8 @@
-package truebeans.fyruz.meteofy.Repository
+package truebeans.fyruz.meteofy.Models.Repository
 
 import androidx.lifecycle.LiveData
-import truebeans.fyruz.meteofy.DataAccessObject.WeatherPlaceDAO
-import truebeans.fyruz.meteofy.Models.WeatherPlace
+import truebeans.fyruz.meteofy.Models.Local.WeatherPlaceDAO
+import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 
 class WeatherPlaceRepository(private val weatherPlaceDAO: WeatherPlaceDAO) {
 

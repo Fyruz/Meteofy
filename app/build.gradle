@@ -92,4 +92,7 @@ dependencies {
     testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
     testImplementation 'android.arch.core:core-testing'
     testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
+    testImplementation "android.arch.core:core-testing"
+
+
 }

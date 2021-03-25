@@ -14,11 +14,11 @@ abstract class InternetCaller : InternetConnection{
                     }
 
                     override fun onResponse(call: Call, response: Response) {
-                response.body()?.string()?.let {
-                    onResponseReceived(it)
-                }
-            }
-        })
+                        response.body()?.string()?.let {
+                             onResponseReceived(it)
+                        }
+                    }
+                })
     }
 
     private fun createRequest() : Request{

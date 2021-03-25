@@ -11,8 +11,8 @@ import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import truebeans.fyruz.meteofy.DataAccessObject.WeatherPlaceDAO
-import truebeans.fyruz.meteofy.Models.WeatherPlace
+import truebeans.fyruz.meteofy.Models.Local.WeatherPlaceDAO
+import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 import java.io.IOException
 
 @RunWith(RobolectricTestRunner::class)

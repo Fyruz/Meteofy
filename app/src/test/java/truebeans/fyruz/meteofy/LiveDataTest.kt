@@ -1,18 +1,17 @@
 package truebeans.fyruz.meteofy
 
-import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.jraska.livedata.test
 import org.junit.Assert
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 
-@RunWith(RobolectricTestRunner::class)
-@Config(maxSdk = Build.VERSION_CODES.P, minSdk = Build.VERSION_CODES.P)
 class LiveDataTest {
+
+    @get:Rule
+    val testRule = InstantTaskExecutorRule()
 
     @Test
     fun testLiveDataObserver() {

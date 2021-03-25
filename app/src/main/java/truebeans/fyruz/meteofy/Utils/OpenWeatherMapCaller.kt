@@ -2,12 +2,9 @@ package truebeans.fyruz.meteofy.Utils
 
 import OpenWeatherMapJsonResponse
 import android.app.Activity
-import android.content.Context
 import android.widget.Toast
 import com.google.gson.Gson
-import com.google.gson.JsonDeserializationContext
-import truebeans.fyruz.meteofy.Models.WeatherPlace
-import truebeans.fyruz.meteofy.UI.MainActivity
+import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 import truebeans.fyruz.meteofy.ViewModel.WeatherPlaceViewModel
 import kotlin.math.roundToInt
 
@@ -43,15 +40,14 @@ class OpenWeatherMapCaller(private val placeName: String,
 
         if(response.contains("404")){
             onErrorReceived("Citta non presente nel DB")
-            return
-        }
-
-        val rawPlace = Gson().fromJson(response, OpenWeatherMapJsonResponse::class.java)
-        val placeTemp = rawPlace.main.feels_like.roundToInt()
-        val placeName = rawPlace.name
-        val weatherType = rawPlace.weather[0].main
-        weatherPlaceViewModel.insert(
+        }else {
+            val rawPlace = Gson().fromJson(response, OpenWeatherMapJsonResponse::class.java)
+            val placeTemp = rawPlace.main.feels_like.roundToInt()
+            val placeName = rawPlace.name
+            val weatherType = rawPlace.weather[0].main
+            weatherPlaceViewModel.insert(
                 WeatherPlace(placeName, "$placeTemp°", weatherType)
             )
+        }
     }
 }

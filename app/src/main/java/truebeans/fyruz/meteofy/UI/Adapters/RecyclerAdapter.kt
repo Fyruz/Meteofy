@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import truebeans.fyruz.meteofy.Models.WeatherPlace
+import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 import truebeans.fyruz.meteofy.R
 
 class RecyclerAdapter(private val context: Context,
@@ -39,7 +39,7 @@ class RecyclerAdapter(private val context: Context,
 
     }
 
-    private fun populateViewHolder(holder: WeatherPlaceHolder, place : WeatherPlace ){
+    private fun populateViewHolder(holder: WeatherPlaceHolder, place : WeatherPlace){
         holder.placeName.text = place.placeName
         holder.placeTemp.text = place.placeTemp
         holder.weatherImage.setImageDrawable(getWeatherImage(place.placeWeather))
