@@ -10,14 +10,15 @@ class WeatherPlaceViewModel(private val repo: WeatherPlaceRepository) : ViewMode
     //binding
     val places: LiveData<List<WeatherPlace>> = repo.places
 
+
     //Insert new element inside the DB
-    fun insert(place: WeatherPlace) = viewModelScope.launch {
-        repo.insert(place)
+    fun insertPlace(place: WeatherPlace) = viewModelScope.launch {
+        repo.insertPlace(place)
     }
 
     //Delete an element from DB
-    fun delete(placeId: String) = viewModelScope.launch {
-        repo.delete(placeId)
+    fun deletePlace(placeId: String) = viewModelScope.launch {
+        repo.deletePlace(placeId)
     }
 
 }

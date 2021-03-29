@@ -14,12 +14,12 @@ interface WeatherPlaceDAO {
     fun getWeatherPlacesAsLiveData(): LiveData<List<WeatherPlace>>
 
     @Query("SELECT count(*) FROM WeatherPlaces")
-    fun getPlacesCount(): Int
+    suspend fun getPlacesCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNewPlace(newPlace: WeatherPlace)
+    suspend fun insertNewPlace(newPlace: WeatherPlace)
 
     @Query("DELETE FROM WeatherPlaces WHERE placeName = :currentPlaceName")
-    fun deleteByPlaceId(currentPlaceName: String)
+    suspend fun deleteByPlaceId(currentPlaceName: String)
 
 }

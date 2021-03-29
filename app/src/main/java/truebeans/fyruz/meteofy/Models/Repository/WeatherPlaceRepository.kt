@@ -6,13 +6,13 @@ import truebeans.fyruz.meteofy.Models.Data.WeatherPlace
 
 class WeatherPlaceRepository(private val weatherPlaceDAO: WeatherPlaceDAO) {
 
-    val places: LiveData<List<WeatherPlace>> = weatherPlaceDAO.getWeatherPlacesAsLiveData()
+    val places = weatherPlaceDAO.getWeatherPlacesAsLiveData()
 
-    fun insert(weatherPlace: WeatherPlace) {
+    suspend fun insertPlace(weatherPlace: WeatherPlace) {
         weatherPlaceDAO.insertNewPlace(weatherPlace)
     }
 
-    fun delete(placeId: String){
+    suspend fun deletePlace(placeId: String){
         weatherPlaceDAO.deleteByPlaceId(placeId)
     }
 

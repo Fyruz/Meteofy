@@ -83,6 +83,6 @@ class MainActivity : AppCompatActivity() , CardClickListener{
 
     //Manage the long click on a RecyclerView cell
     override fun onCardLongClickListener(data: WeatherPlace) {
-        weatherPlaceViewModel.delete(data.placeName)
+        weatherPlaceViewModel.deletePlace(data.placeName)
     }
 }
